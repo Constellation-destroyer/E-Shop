@@ -17,7 +17,7 @@ router.get(`/`, async (req, res) =>{
 //     console.log(newProduct);
 //     res.send(newProduct); 
 // })
-router.post(`/`, (req, res) =>{
+router.post(`/`, async (req, res) => {
     console.log('POST body:', req.body); 
     
     const product = new Product({
@@ -25,6 +25,14 @@ router.post(`/`, (req, res) =>{
         image: req.body.image,
         countInStock: req.body.countInStock
     });
+
+     try {
+        const savedProduct = await product.save();
+        res.status(201).json(savedProduct); // success response
+    } catch (err) {
+        res.status(500).json({ success: false, error: err });
+    }
+
 })
 
 module.exports = router;
