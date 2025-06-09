@@ -32,6 +32,10 @@ const Product = mongoose.model('Product', productSchema);
 //exchaning backend data to front end from get method
 app.get(`${api}/products`, async (req, res) =>{
     const productList = await Product.find();
+
+    if(!productList) {
+        res.status(500).json({success: false})
+    }
     res.send(productList); 
 })
 // exchaning front end data with backend
