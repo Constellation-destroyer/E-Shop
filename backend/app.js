@@ -21,19 +21,18 @@ require('dotenv/config');
 const productSchema = mongoose.Schema({
     name: String,
     image: String, 
-    countInStock: Number
+    countInStock: {
+        type : Number,
+        required: true  // to make a data type required
+    }
 })
 
 const Product = mongoose.model('Product', productSchema);
 
 //exchaning backend data to front end from get method
-app.get(`${api}/products`, (req, res) =>{
-    const product = {
-        id: 1,
-        name: "hair dresser",
-        image: "some_url"
-    }
-    res.send(product); 
+app.get(`${api}/products`, async (req, res) =>{
+    const productList = await Product.find();
+    res.send(productList); 
 })
 // exchaning front end data with backend
 // app.post(`${api}/products`, (req, res) =>{
