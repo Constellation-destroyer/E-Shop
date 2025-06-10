@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 
 const api = process.env.API_URL;
 console.log('API_URL:', api);
-const productsRouter = require('./routers/products');
+const productsRouter = require('./routes/products');
 // /api/v1
 // app.get(api+'/products', (req, res) =>{
 //     res.send('hello Api!'); //exchanging string data with front end
@@ -21,18 +21,6 @@ require('dotenv/config');
 
 //Routers
 app.use(`${api}/products`, productsRouter)
-
-
-    product.save().then((createdProduct=> {
-        res.status(201).json(createdProduct)
-    })).catch((err)=>{
-        res.status(500).json({
-         error: err,
-         success: false   
-        })
-    })
-    // res.send(newProduct); 
-
 
 
 mongoose.connect(process.env.CONNECTION_STRING)
